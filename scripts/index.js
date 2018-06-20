@@ -1,17 +1,4 @@
 'use strict';
-/* global shoppingList, cuid */
-
-// eslint-disable-next-line no-unused-vars
-const store = {
-  items: [
-    { id: cuid(), name: 'apples', checked: false },
-    { id: cuid(), name: 'oranges', checked: false },
-    { id: cuid(), name: 'milk', checked: true },
-    { id: cuid(), name: 'bread', checked: false }
-  ],
-  hideCheckedItems: false,
-  searchTerm: ''
-};
 
 $(document).ready(function() {
   shoppingList.bindEventListeners();
@@ -19,6 +6,13 @@ $(document).ready(function() {
   api.getItems((items) => {
     items.forEach((item) => store.addItem(item));
     shoppingList.render();
+  });
 });
 
-// store.items.push(Item.create('apples'));
+api.getItems((items) => {
+  const item = items[0];
+
+  api.updateItem(item.id, { name: 'foobar' }, () => {
+    console.log('updated!');
+  });
+});

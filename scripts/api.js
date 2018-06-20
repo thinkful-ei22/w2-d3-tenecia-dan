@@ -1,14 +1,15 @@
 'use strict';
+/*global $ */
 
 const api = (function(){
-  const BASE_URL = 'https://thinkful-list-api.herokuapp.com/Tenecia';
+  const BASE_URL = 'https://thinkful-list-api.herokuapp.com/dan';
 
   const getItems = function(callback){
-   return $.getJSON(`"${BASE_URL}/items"`,callback);
+    $.getJSON(`${BASE_URL}/items`, callback);
   };
   
-    const createItem = (name, callback) => {
-    const newItem = JSON.stringify({name: 'Bananas'});
+  const createItem = (name, callback) => {
+    const newItem = JSON.stringify({name,});
     $.ajax({
       url: `${BASE_URL}/items`,
       method: 'POST',
@@ -27,10 +28,8 @@ const api = (function(){
     });
   };
     
-return {getItems,
-createItem,
-updateItem
-};
+  return {getItems,
+    createItem,
+    updateItem,
+  };
 }());
-
-
