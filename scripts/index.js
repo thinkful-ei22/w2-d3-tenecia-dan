@@ -1,25 +1,24 @@
 'use strict';
-/* global shoppingList, store, Item, api $ */
+/* global shoppingList, cuid */
+
+// eslint-disable-next-line no-unused-vars
+const store = {
+  items: [
+    { id: cuid(), name: 'apples', checked: false },
+    { id: cuid(), name: 'oranges', checked: false },
+    { id: cuid(), name: 'milk', checked: true },
+    { id: cuid(), name: 'bread', checked: false }
+  ],
+  hideCheckedItems: false,
+  searchTerm: ''
+};
 
 $(document).ready(function() {
   shoppingList.bindEventListeners();
   shoppingList.render();
-});
-
-store.items.push(Item.create('apples'));
-
-// $.getJSON('https://thinkful-list-api.herokuapp.com/ei-student/items', (response) => {
-//   console.log('api response:', response);
-// });
-
-// api.getItems(function(data) {
-//   console.log(data);
-// });
-  
-// console.log(api.BASE_URL);
-
-api.createItem('pears', (newItem) => {
   api.getItems((items) => {
-    console.log(items);
-  });
+    items.forEach((item) => store.addItem(item));
+    shoppingList.render();
 });
+
+// store.items.push(Item.create('apples'));
